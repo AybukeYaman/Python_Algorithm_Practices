@@ -18,5 +18,23 @@ def total_distance(route):
         toplam+= distance(route[i], route[i+1])
     return toplam
 
+
+def random_route(cities):
+    route=cities.copy()
+    random.shuffle(route)
+    return route
+
+def hundred_shortest_route():
+    newcities=[]   
+    for i in range(100):
+         random=random_route(cities)
+         final=total_distance(random)
+         newcities.append(final)
+    return min(newcities) 
+
+
+
 print("Mesafe", distance(cities[0], cities[1]))
 print("Total Distance:", total_distance(cities))
+print("Random Route:", random_route(cities))
+print("En kısa rota mesafesi:", hundred_shortest_route())
