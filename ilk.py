@@ -31,10 +31,30 @@ def hundred_shortest_route():
          final=total_distance(random)
          newcities.append(final)
     return min(newcities) 
+"""finalde sade tek ve en küçük olan rotayı döndürüyor """
 
+
+
+population=[]
+def create_population():
+   for i in range(100):
+       route=random_route(cities)
+       dist=total_distance(route)
+       population.append((route,dist))
+   return population   
+"""BU ILK KISMI burada da daha olabilecek rota arıyoruz 100 rotayı da görerek /daha zengin veri seti"""
+    
+
+def select_best(population):
+  sortedList=[]
+  sortedList=sorted(population, key=lambda x: x[1])     
+  return sortedList[:20]
+"""BU IKINCI KISMI ilk 20 elemanı al demek zaten küçükten büyüğe sıralanıyor"""
 
 
 print("Mesafe", distance(cities[0], cities[1]))
 print("Total Distance:", total_distance(cities))
 print("Random Route:", random_route(cities))
 print("En kısa rota mesafesi:", hundred_shortest_route())
+print("En kısa 100 rota: ", create_population())
+print("En iyi 20 rota: ", select_best(create_population()))
