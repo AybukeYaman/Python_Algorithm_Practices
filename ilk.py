@@ -49,7 +49,19 @@ def select_best(population):
   sortedList=[]
   sortedList=sorted(population, key=lambda x: x[1])     
   return sortedList[:20]
+"""   best = [([şehirler...],distance)]    """
+
 """BU IKINCI KISMI ilk 20 elemanı al demek zaten küçükten büyüğe sıralanıyor"""
+
+
+def crossover(parent1,parent2):
+      parca1= parent1[:5]
+      parca1_set= set(parca1)
+      """parent2 yi gez, parent1 de olmayanları al"""
+      parca2_filtered=[x for x in parent2 if x not in parca1_set][:5]
+      return  parca1 + parca2_filtered
+
+
 
 
 print("Mesafe", distance(cities[0], cities[1]))
@@ -58,3 +70,9 @@ print("Random Route:", random_route(cities))
 print("En kısa rota mesafesi:", hundred_shortest_route())
 print("En kısa 100 rota: ", create_population())
 print("En iyi 20 rota: ", select_best(create_population()))
+
+best=select_best((create_population()))
+parent1= best[0][0]
+parent2=best[1][0]
+"""en iyi 2 aday"""
+print("En iyi 20 içinden alınan 2 elemanın cross listi çocuğu: ", crossover(parent1,parent2))
