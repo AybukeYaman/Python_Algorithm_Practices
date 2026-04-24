@@ -59,7 +59,13 @@ def crossover(parent1,parent2):
       parca1_set= set(parca1)
       """parent2 yi gez, parent1 de olmayanları al"""
       parca2_filtered=[x for x in parent2 if x not in parca1_set][:5]
-      return  parca1 + parca2_filtered
+      childRoute=  parca1 + parca2_filtered
+      return childRoute
+
+def mutate(childRoute):
+    i,j=random.sample(range(len(childRoute)), k=2)
+    childRoute[i], childRoute[j] = childRoute[j], childRoute[i]
+    return childRoute
 
 
 
@@ -76,3 +82,7 @@ parent1= best[0][0]
 parent2=best[1][0]
 """en iyi 2 aday"""
 print("En iyi 20 içinden alınan 2 elemanın cross listi çocuğu: ", crossover(parent1,parent2))
+
+child= crossover(parent1,parent2)
+print("Cross çocuk: ", child)
+print("Mutasyon sonrası cross çocuk: ",mutate(child))
