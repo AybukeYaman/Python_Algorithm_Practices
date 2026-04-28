@@ -1,5 +1,6 @@
 import random
 import math
+import matplotlib.pyplot as plt
 
 # 10 şehir oluşturduk
 cities = [(random.randint(0, 100), random.randint(0, 100)) for _ in range(10)]
@@ -68,6 +69,37 @@ def mutate(childRoute):
     return childRoute
 
 
+def genetic_alhorithm():
+    population=create_population()
+    children=[]
+    best=select_best(population)
+    for i in range(100):
+       parent1=random.choice(best)[0]
+       parent2=random.choice(best)[0]
+       """sadece şehirleri alır rotayı almaz"""
+
+       child=crossover(parent1,parent2)
+       mutatedChild=mutate(child)
+       children.append((mutatedChild,total_distance(mutatedChild)))
+
+       newPop =best+children
+       population=newPop
+       """ohaa çok mantıklııııı"""
+
+    return select_best(population)[0]   
+
+
+
+def visualize(route):
+    x = [city[0] for city in route]
+    y = [city[1] for city in route]
+    plt.figure(figsize=(8,6))
+    plt.plot(x + [x[0]], y + [y[0]], 'b-o')
+    plt.title("En İyi Rota")
+    plt.show()
+
+best_route = genetic_alhorithm()[0]
+visualize(best_route)
 
 
 print("Mesafe", distance(cities[0], cities[1]))
@@ -86,3 +118,4 @@ print("En iyi 20 içinden alınan 2 elemanın cross listi çocuğu: ", crossover
 child= crossover(parent1,parent2)
 print("Cross çocuk: ", child)
 print("Mutasyon sonrası cross çocuk: ",mutate(child))
+print("Genetik Algoritma sonrası nesiller arası en iyi rotalar: ",genetic_alhorithm())
