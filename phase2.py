@@ -45,15 +45,49 @@ def fitness(individual):
     """doğruluk = score   fit = modeli eğit"""
     return score
 
-print("O bireyin doğruluğunu ölç:", fitness(187,10))
+print("O bireyin doğruluğunu ölç:", fitness((187,10)))
 
-""" def select_best(population):
+def select_best(population):
     best=[]
-    for i in range(20):
-        best=fitness(population[0],population[1])
-        sortedList=best.sorted(fitness, key=lambda x:x[1])
-        return sortedList[:10]
+    for i in range(len(population)):
+        best.append((population[i],fitness(population[i])))
+        sortedList=sorted(best, key=lambda x:x[1], reverse=True)
+    return sortedList[:10]
 
 
+print("modele göre 20 bireyin doğruluğu:",select_best(population))  
 
-print("modele göre 20 bireyin doğruluğu:",select_best())     """
+
+def crossover(indv1,indv2):
+    child=[indv1[0], indv2[1]]
+    return child
+
+
+print("2 individualin çocuğu:",crossover((5,10),(20,40)))  
+
+def mutate(individual):
+    index=random.randint(0,1)
+    mutatedInd=[]
+    if index == 0:
+        individual[0]=random.randint(10,200)
+    else:
+        individual[1]=random.randint(1,20)
+    return individual 
+
+print("Mutate olmuş bir individual:",mutate([180,50]))
+
+def genetic_algorithm():
+    pop=create_population()
+    best=select_best(pop)
+
+    for i in range(10):
+        indv1=random.choice(best)[0]
+        indv2=random.choice(best)[0]
+        child=crossover(indv1,indv2)
+        child=mutate(child)
+        pop.append(child)
+        best=select_best(pop)
+
+    return select_best(pop)[0]
+
+print("En iyi bireyi döndür genetik algo:",genetic_algorithm())
