@@ -35,3 +35,24 @@ def fitness(soldier_Coordinates):
 
 soldier= create_soldier()
 print("Asker ne kadar uygun (fitness):", fitness(create_soldier()))
+
+
+def select_best():
+   best=[]
+   army=create_army()
+   for i in range(len(army)):
+      fit=fitness(army[i])
+      best.append((army[i],fit))
+   return best
+
+def select_leaders():
+   best=select_best()
+   listed=sorted( best, key=lambda x: x[1])     
+   king=listed[0]
+   commander=listed[1]
+   leaders=[king,commander]
+   return leaders
+
+leaders = select_leaders()
+print("King:", leaders[0])
+print("Commander:", leaders[1])
